@@ -11,7 +11,6 @@ namespace FreeCourse.Services.Catalog.Controllers
     public class CoursesController : CustomControllerBase
     {
         private readonly ICourseService _courseService;
-
         public CoursesController(ICourseService courseService)
         {
             _courseService = courseService;
@@ -29,6 +28,7 @@ namespace FreeCourse.Services.Catalog.Controllers
             var response = await _courseService.GetAllAsync();
             return CreateActionResultInstance(response);
         }
+        [HttpGet]
         [Route("/api/[controller]/GetAllByUserId/{userId}")] //custom route
         public async Task<IActionResult> GetAllByUserId(string userId)
         {
