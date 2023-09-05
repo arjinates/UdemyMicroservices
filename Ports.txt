@@ -1,2 +1,9 @@
 Services
 -catalogAPI=> 5011
+
+Tools
+-Portainer => 8000 and 9443
+				username=admin
+				password=lBe<TICycY8kG{$}p0PV2X=3_[K)9164
+-identityDb => 1433
+				password=Password12*
