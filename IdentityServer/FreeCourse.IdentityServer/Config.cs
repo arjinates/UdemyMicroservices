@@ -27,7 +27,7 @@ namespace FreeCourse.IdentityServer
             new ApiScope[]
             {
                 new ApiScope("catalog_fullpermission","Catalog API için full erisim"),
-                new ApiScope("photo_stock__fullpermission","Photo Stock API için full erisim"),
+                new ApiScope("photo_stock_fullpermission","Photo Stock API için full erisim"),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
             };
 
