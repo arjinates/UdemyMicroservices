@@ -50,6 +50,7 @@ namespace FreeCourse.IdentityServer
                 {
                     ClientName = "AspNetCoreMvc",
                     ClientId = "WebMvcClientForUser",
+                    AllowOfflineAccess = true,
                     ClientSecrets = {new Secret("secret".Sha256())},    
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,               //OpenId'ye mutlaka ulasmak durumunda
                     AllowedScopes = {IdentityServerConstants.StandardScopes.Email,IdentityServerConstants.StandardScopes.OpenId,
