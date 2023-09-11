@@ -1,4 +1,6 @@
+using FreeCourse.Services.Basket.Services;
 using FreeCourse.Services.Basket.Settings;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<RedisSettings>(builder.Configuration.GetSection("RedisSettings"));
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var redisSetttings = serviceProvider.GetRequiredService<IOptions<RedisSettings>>().Value;
+
+    var redis = new RedisService(redisSetttings.Host, redisSetttings.Port);
+
+    redis.Connect();
+
+    return redis;
+});
 
 var app = builder.Build();
 
