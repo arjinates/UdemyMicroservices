@@ -1,6 +1,7 @@
 Services
 -catalogAPI=> 5011
 -PhotoStock=> 5012
+-Basket	   => 5013
 Tools
 -Portainer => 8000 and 9443
 				username=admin
