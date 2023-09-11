@@ -4,11 +4,12 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:5011",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5092"
+      "dotnetRunMessages": true
+
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -28,15 +29,7 @@
       },
       "distributionName": ""
     },
-    "FreeCourse.Services.Catalog": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": false,
-      "applicationUrl": "http://localhost:5011",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT":"Development"
-      }
-    }
+   
   },
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "iisSettings": {
