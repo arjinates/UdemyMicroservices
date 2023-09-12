@@ -20,7 +20,7 @@ builder.Services.AddControllers(opt =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.Authority = builder.Configuration["IdentityServerURL"];
-    options.Audience = "TODO";
+    options.Audience = "basket_fullpermission";
     options.RequireHttpsMetadata = false;
 });
 
