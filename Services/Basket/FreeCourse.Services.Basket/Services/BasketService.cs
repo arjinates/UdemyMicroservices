@@ -7,6 +7,12 @@ namespace FreeCourse.Services.Basket.Services
     public class BasketService : IBasketService
     {
         private readonly RedisService _redisService;
+
+        public BasketService(RedisService redisService)
+        {
+            _redisService = redisService;
+        }
+
         public async Task<Response<bool>> Delete(string userId)
         {
             var existBasket = await _redisService.GetDb().KeyDeleteAsync(userId);
@@ -23,7 +29,7 @@ namespace FreeCourse.Services.Basket.Services
                 return Response<BasketDto>.Fail("Basket not found.", 404);
             }
 
-            return Response<BasketDto>.Success(JsonSerializer.Deserialize<BasketDto>(existBasket), 204);
+            return Response<BasketDto>.Success(JsonSerializer.Deserialize<BasketDto>(existBasket), 200);
         }
 
         public async Task<Response<bool>> SaveOrUpdate(BasketDto basketDto)
