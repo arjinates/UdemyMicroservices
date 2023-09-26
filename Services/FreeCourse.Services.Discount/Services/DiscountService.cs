@@ -23,9 +23,15 @@ namespace FreeCourse.Services.Discount.Services
             _mapper = mapper;   
         }
 
-        public Task<Response<NoContent>> DeleteById(int id)
+        public async Task<Response<NoContent>> DeleteById(int id)
         {
-            throw new NotImplementedException(); //TODO
+            if ((await _dbConnection.QueryAsync("Select * from discount where id=@Id", new { Id=id })).FirstOrDefault())
+            {
+                return Response<NoContent>.Fail("Discount could not found!", 404);
+            }
+            var status = await _dbConnection.ExecuteAsync("DELETE FROM discount WHERE id=@Id", new { Id=id });
+
+            return status > 0 ? Response<NoContent>.Fail("An ERROR occured while deleting.", 500) : Response<NoContent>.Success(204);
         }
 
         public async Task<Response<List<DiscountDto>>> GetAll()
@@ -35,29 +41,50 @@ namespace FreeCourse.Services.Discount.Services
             
         }
 
-        public Task<Response<DiscountDto>> GetByCodeAndUserId(string code, string userId)
-        { 
-            throw new NotImplementedException(); //TODO
+        public async Task<Response<DiscountDto>> GetByCodeAndUserId(string code, string userId)
+        {
+            if (code == null || userId == null)
+            {
+                return Response<DiscountDto>.Fail("Code and userId can not be empty.", 400);
+            }
+            var discount = (await _dbConnection.QueryAsync("SELECT * FROM discount WHERE code=@Code and userid=@UserId",
+                new { Code = code, UserId = userId })).SingleOrDefault();
+
+            return discount == null ? Response<DiscountDto>.Fail("Discount could not found.", 404) : 
+                Response<DiscountDto>.Success(_mapper.Map<DiscountDto>(discount));
         }
 
         public async Task<Response<DiscountDto>> GetById(int id)
         {
-            var discount = (await _dbConnection.QueryAsync("Select * from discount where id=@Id", new { id })).SingleOrDefault();
-            if (discount == null) 
+            var discount = (await _dbConnection.QueryAsync("Select * from discount where id=@Id", new { Id = id })).SingleOrDefault();
+            
+            return discount==null ? Response<DiscountDto>.Fail("Discount could not found", 404) :
+                Response<DiscountDto>.Success(_mapper.Map<DiscountDto>(discount), 200);
+        }
+
+        public async Task<Response<NoContent>> Save(DiscountDto dto)
+        {
+            var status = await _dbConnection.ExecuteAsync("INSERT INTO discount (userid,rate,code) VALUES(@UserId,@Rate,@Code)", dto);
+            if (status > 0)
             {
-                return Response<DiscountDto>.Fail("Discount could not found", 404);
+                return Response<NoContent>.Success(204);
             }
-            return Response<DiscountDto>.Success(_mapper.Map<DiscountDto>(discount), 200);
+            return Response<NoContent>.Fail("An ERROR occured while adding",500);
         }
 
-        public Task<Response<NoContent>> Save(DiscountDto dto)
+        public async Task<Response<NoContent>> Update(DiscountDto dto)
         {
-            throw new NotImplementedException(); //TODO
-        }
-
-        public Task<Response<NoContent>> Update(DiscountDto dto)
-        {
-            throw new NotImplementedException(); //TODO
+            if ((await _dbConnection.QueryAsync("Select * from discount where id=@Id", new { dto.Id })).FirstOrDefault())
+            {
+                return Response<NoContent>.Fail("Discount could not found!", 404);
+            }
+            var status = await _dbConnection.ExecuteAsync("update discount set userid=@UserId, code=@Code, rate=@Rate wherer id=@Id",
+                new { Id=dto.Id, UserId=dto.UserId, Rate=dto.Rate, Code=dto.Code }); //tek tek de verebilirim
+            if (status > 0)
+            {
+                return Response<NoContent>.Success(204);
+            }
+            return Response<NoContent>.Fail("An ERROR occured while updating", 500);
         }
     }
 }
