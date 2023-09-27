@@ -74,7 +74,7 @@ namespace FreeCourse.Services.Discount.Services
 
         public async Task<Response<NoContent>> Update(DiscountDto dto)
         {
-            if ((await _dbConnection.QueryAsync("Select * from discount where id=@Id", new { dto.Id })).FirstOrDefault())
+            if ((await _dbConnection.QueryAsync("Select * from discount where id=@Id", new { Id=dto.Id })).FirstOrDefault())
             {
                 return Response<NoContent>.Fail("Discount could not found!", 404);
             }
