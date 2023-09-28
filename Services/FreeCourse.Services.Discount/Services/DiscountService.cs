@@ -25,7 +25,7 @@ namespace FreeCourse.Services.Discount.Services
 
         public async Task<Response<NoContent>> DeleteById(int id)
         {
-FixedArgumentsEncoder:            if ((await _dbConnection.QueryAsync("Select * from discount where id=@Id", new { Id=id })).FirstOrDefault() == null)
+            if ((await _dbConnection.QueryAsync("Select * from discount where id=@Id", new { Id=id })).FirstOrDefault() == null)
             {
                 return Response<NoContent>.Fail("Discount could not found!", 404);
             }
