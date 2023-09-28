@@ -38,7 +38,6 @@ namespace FreeCourse.Services.Discount.Services
         {
             var discounts = await _dbConnection.QueryAsync<Models.Discount>("Select * from discount");
             return Response<List<DiscountDto>>.Success(_mapper.Map<List<DiscountDto>>(discounts), 200);
-            
         }
 
         public async Task<Response<DiscountDto>> GetByCodeAndUserId(string code, string userId)
@@ -65,11 +64,7 @@ namespace FreeCourse.Services.Discount.Services
         public async Task<Response<NoContent>> Save(DiscountDto dto)
         {
             var status = await _dbConnection.ExecuteAsync("INSERT INTO discount (userid,rate,code) VALUES(@UserId,@Rate,@Code)", dto);
-            if (status > 0)
-            {
-                return Response<NoContent>.Success(204);
-            }
-            return Response<NoContent>.Fail("An ERROR occured while adding",500);
+            return status>0 ? Response<NoContent>.Success(204) : Response<NoContent>.Fail("An ERROR occured while adding",500);
         }
 
         public async Task<Response<NoContent>> Update(DiscountDto dto)
@@ -80,11 +75,8 @@ namespace FreeCourse.Services.Discount.Services
             }
             var status = await _dbConnection.ExecuteAsync("update discount set userid=@UserId, code=@Code, rate=@Rate wherer id=@Id",
                 new { Id=dto.Id, UserId=dto.UserId, Rate=dto.Rate, Code=dto.Code }); //tek tek de verebilirim
-            if (status > 0)
-            {
-                return Response<NoContent>.Success(204);
-            }
-            return Response<NoContent>.Fail("An ERROR occured while updating", 500);
+
+            return status>0 ? Response<NoContent>.Success(204) : Response<NoContent>.Fail("An ERROR occured while updating", 500);
         }
     }
 }
