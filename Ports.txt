@@ -3,6 +3,7 @@ Services
 -PhotoStock=> 5012
 -Basket	   => 5013
 -Discount  => 5014
+-Order     => 5015
 Tools
 -Portainer => 8000 and 9443
 				username=admin
