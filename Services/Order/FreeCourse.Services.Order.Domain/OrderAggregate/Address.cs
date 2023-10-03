@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace FreeCourse.Services.Order.Domain.OrderAggregate
 {
-    //[Owned]
+    //[Owned] oldugunu burda belirtmiyorum, OrderDbContext'den ayarlıyorum cunku Domain katmanının hangi ORM aracını kullanginini bilmesini istemiyorum
+    //Katmanların birbiri hakkında oldugunca az fikir sahibi olmasini istiyorum, sızıntı yapmıyorum.
     public class Address : ValueObject //EF CORE OWNED TYPE
     { //Address is a type with no identity property. It is used as a property of the Order type to specify the shipping address for a particular order.
         public string Province { get; private set; } 
