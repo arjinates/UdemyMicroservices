@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace FreeCourse.Services.Order.Domain.Core
 {
     public abstract class ValueObject
-    {
+    { //A structure without an Id
         protected static bool EqualOperator(ValueObject left, ValueObject right)
         {
             if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))

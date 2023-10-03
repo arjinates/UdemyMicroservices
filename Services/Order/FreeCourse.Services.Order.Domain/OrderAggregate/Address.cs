@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace FreeCourse.Services.Order.Domain.OrderAggregate
 {
+    //[Owned]
     public class Address : ValueObject //EF CORE OWNED TYPE
-    {
+    { //Address is a type with no identity property. It is used as a property of the Order type to specify the shipping address for a particular order.
         public string Province { get; private set; } 
         public string Disctrict { get; private set; }
         public string Street { get; private set; }
