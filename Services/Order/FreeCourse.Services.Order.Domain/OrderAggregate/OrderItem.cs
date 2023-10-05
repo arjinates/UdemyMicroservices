@@ -1,6 +1,7 @@
 ﻿using FreeCourse.Services.Order.Domain.Core;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,10 @@ namespace FreeCourse.Services.Order.Domain.OrderAggregate
             ProductName = productName;
             PictureUrl = pictureUrl;
             Price = price;
+        }
+
+        public OrderItem()
+        {
         }
 
         public void UpdateOrderItem(string productName, string pictureUrl, decimal price)
