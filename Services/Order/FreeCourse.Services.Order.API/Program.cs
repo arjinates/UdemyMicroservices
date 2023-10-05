@@ -1,4 +1,7 @@
+using FreeCourse.Services.Order.Application.Handlers;
 using FreeCourse.Services.Order.Infrastructure;
+using FreeCourse.Shared.Services;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -15,6 +18,15 @@ builder.Services.AddDbContext<OrderDbContext>(opt =>
         configure.MigrationsAssembly("FreeCourse.Services.Order.Infrastructure");
     });
 });
+builder.Services.AddMediatR(opt =>
+{
+    opt.RegisterServicesFromAssemblyContaining(typeof(FreeCourse.Services.Order.Application.Handlers.CreateOrderCommandHandler));
+    //or
+    //opt.RegisterServicesFromAssembly(typeof(FreeCourse.Services.Order.Application.Handlers.CreateOrderCommandHandler).Assembly);
+});
+builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+builder.Services.AddHttpContextAccessor();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
