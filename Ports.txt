@@ -5,6 +5,8 @@ Services
 -Discount  => 5014
 -Order     => 5015
 -FakePayment> 5016
+-Gateway   => 5000
+
 Tools
 -Portainer => 8000 and 9443
 				username=admin
