@@ -10,6 +10,10 @@
         "Put"
       ],
       "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
+        "AllowedScopes": ["catalog_fullpermission"]
+      },
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -27,6 +31,10 @@
         "Put"
       ],
       "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
+        "AllowedScopes": [ "photostock_fullpermission" ]
+      },
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -44,6 +52,10 @@
         "Put"
       ],
       "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
+        "AllowedScopes": [ "basket_fullpermission" ]
+      },
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -61,6 +73,10 @@
         "Put"
       ],
       "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
+        "AllowedScopes": [ "discount_fullpermission" ]
+      },
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -78,6 +94,10 @@
         "Put"
       ],
       "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
+        "AllowedScopes": [ "order_fullpermission" ]
+      },
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -95,6 +115,10 @@
         "Put"
       ],
       "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
+        "AllowedScopes": [ "fakepayment_fullpermission" ]
+      },
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
