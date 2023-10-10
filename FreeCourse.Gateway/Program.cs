@@ -12,6 +12,4 @@ var app = builder.Build();
 
 await app.UseOcelot();
 
-app.MapGet("/", () => "Hello World!");
-
 app.Run();
