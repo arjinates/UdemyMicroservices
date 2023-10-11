@@ -19,6 +19,7 @@ namespace FreeCourse.IdentityServer
             new ApiResource("resource_discount"){Scopes={"discount_fullpermission"}},
             new ApiResource("resource_order"){Scopes={"order_fullpermission"}},
             new ApiResource("resource_fakepayment"){Scopes={"fakepayment_fullpermission"}},
+            new ApiResource("resource_gateway"){Scopes={"gateway_fullpermission"}},
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 
@@ -39,7 +40,8 @@ namespace FreeCourse.IdentityServer
                 new ApiScope("basket_fullpermission","Basket API icin full erisim"),
                 new ApiScope("discount_fullpermission","Discount API icin full erisim"),
                 new ApiScope("order_fullpermission","Order API icin full erisim"),
-                new ApiScope("fakepayment_fullpermission","Order API icin full erisim"),
+                new ApiScope("fakepayment_fullpermission","Payment API icin full erisim"),
+                new ApiScope("gateway_fullpermission","Gateway API icin full erisim"),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
             };
 
@@ -52,7 +54,8 @@ namespace FreeCourse.IdentityServer
                     ClientId = "WebMvcClient",
                     ClientSecrets = {new Secret("secret".Sha256())},
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    AllowedScopes = {"catalog_fullpermission","photo_stock_fullpermission",IdentityServerConstants.LocalApi.ScopeName},
+                    AllowedScopes = {"catalog_fullpermission","photo_stock_fullpermission", "gateway_fullpermission",
+                        IdentityServerConstants.LocalApi.ScopeName},
                 },
                 new Client
                 {
@@ -62,9 +65,9 @@ namespace FreeCourse.IdentityServer
                     ClientSecrets = {new Secret("secret".Sha256())},    
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,               //OpenId'ye mutlaka ulasmak durumunda
                     AllowedScopes = {"basket_fullpermission","discount_fullpermission","order_fullpermission", "fakepayment_fullpermission",
-                        IdentityServerConstants.StandardScopes.Email,IdentityServerConstants.StandardScopes.OpenId,
-                    IdentityServerConstants.StandardScopes.Profile,IdentityServerConstants.StandardScopes.OfflineAccess,
-                        IdentityServerConstants.LocalApi.ScopeName,"roles"},
+                        "gateway_fullpermission", IdentityServerConstants.StandardScopes.Email,IdentityServerConstants.StandardScopes.OpenId,
+                            IdentityServerConstants.StandardScopes.Profile,IdentityServerConstants.StandardScopes.OfflineAccess,
+                                IdentityServerConstants.LocalApi.ScopeName,"roles"},
                     AccessTokenLifetime=1*60*60,
                     RefreshTokenExpiration=TokenExpiration.Absolute,
                     AbsoluteRefreshTokenLifetime = (int) (DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,
