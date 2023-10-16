@@ -2,7 +2,12 @@
 using FreeCourse.Web.Models;
 using FreeCourse.Web.Services.Interfaces;
 using IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using System.Globalization;
+using System.Security.Claims;
 using System.Text.Json;
 
 namespace FreeCourse.Web.Services
@@ -79,7 +84,27 @@ namespace FreeCourse.Web.Services
                 throw userInfo.Exception;
             }
 
-            //TODO: CLAIMS AND COOKIE
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(userInfo.Claims,
+                CookieAuthenticationDefaults.AuthenticationScheme, "name", "role");
+
+            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+            var authenticationProperties = new AuthenticationProperties();
+
+            authenticationProperties.StoreTokens(new List<AuthenticationToken>()
+            {
+                new AuthenticationToken{ Name = OpenIdConnectParameterNames.AccessToken, Value = token.AccessToken},
+                new AuthenticationToken{ Name = OpenIdConnectParameterNames.RefreshToken, Value = token.RefreshToken},
+                new AuthenticationToken{ Name = OpenIdConnectParameterNames.ExpiresIn,
+                    Value = DateTime.Now.AddSeconds(token.ExpiresIn).ToString("O",CultureInfo.InvariantCulture)}
+            });
+
+            authenticationProperties.IsPersistent = signinInput.IsRemember;
+
+            await _httpcontextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                claimsPrincipal, authenticationProperties);
+
+            return Response<bool>.Success(200);
         }
     }
 }
