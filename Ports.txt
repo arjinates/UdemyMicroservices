@@ -6,6 +6,7 @@ Services
 -Order     => 5015
 -FakePayment> 5016
 -Gateway   => 5000
+-Web       => 5010
 
 Tools
 -Portainer => 8000 and 9443
